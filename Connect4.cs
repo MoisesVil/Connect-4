@@ -23,9 +23,37 @@ namespace TempName
         private List<Button> column5 = new List<Button>();
         private List<Button> column6 = new List<Button>();
 
-        private string player1Name = "";
+        // Backing field
+        private string _player1Name;
 
-        private string player2Name = "";
+        private string Player1Name 
+        { 
+            get
+            {
+                return _player1Name;
+            }
+            set
+            {
+                if (value.Equals("")) _player1Name = "Player 1";
+                else _player1Name = value;
+            }
+        }
+
+        // Backing field
+        private string _player2Name;
+
+        private string Player2Name
+        {
+            get
+            {
+                return _player2Name;
+            }
+            set
+            {
+                if (value.Equals("")) _player2Name = "Player 2";
+                else _player2Name = value;
+            }
+        }
 
         /// <summary>
         /// Constructor for Connect4 class
@@ -125,8 +153,7 @@ namespace TempName
         {
             gameboard.resetBoard();
             ResetGameButtons();
-            if (!player1Name.Equals("")) GameTextLabel.Text = player1Name + "'s Turn";
-            else GameTextLabel.Text = "Player 1's Turn";
+            GameTextLabel.Text = Player1Name + "'s Turn";
             SubTextLabel.Text = "";
         }
 
@@ -139,13 +166,11 @@ namespace TempName
             {
                 if (gameboard.Winner == 1)
                 {
-                    if (!player1Name.Equals("")) GameTextLabel.Text = player1Name + " Won!";
-                    else GameTextLabel.Text = "Player 1 Won!";
+                    GameTextLabel.Text = Player1Name + " Won!";
                 }
                 else if (gameboard.Winner == 2)
                 {
-                    if (!player2Name.Equals("")) GameTextLabel.Text = player2Name + " Won!";
-                    else GameTextLabel.Text = "Player 2 Won!";
+                    GameTextLabel.Text = Player2Name + " Won!";
                 }
                 else
                 {
@@ -171,14 +196,12 @@ namespace TempName
             if (!gameboard.player1Turn)
             {
                 btn.BackColor = Color.Red;
-                if (!player2Name.Equals("")) GameTextLabel.Text = player2Name + "'s Turn";
-                else GameTextLabel.Text = "Player 2's Turn";
+                GameTextLabel.Text = Player2Name + "'s Turn";
             }
             else
             {
                 btn.BackColor = Color.Yellow;
-                if (!player1Name.Equals("")) GameTextLabel.Text = player1Name + "'s Turn";
-                else GameTextLabel.Text = "Player 1's Turn";
+                GameTextLabel.Text = Player1Name + "'s Turn";
             }
             CenterTextLabel();
         }
@@ -336,18 +359,18 @@ namespace TempName
         /// </summary>
         private void GetPlayerNames()
         {
-            using (EnterPlayerName player1 = new EnterPlayerName(player1Name, true))
+            using (EnterPlayerName player1 = new EnterPlayerName(Player1Name, true))
             {
                 if (player1.ShowDialog() == DialogResult.OK)
                 {
-                    player1Name = player1.playerName;
+                    Player1Name = player1.playerName;
                 }
             }
-            using (EnterPlayerName player2 = new EnterPlayerName(player2Name, false))
+            using (EnterPlayerName player2 = new EnterPlayerName(Player2Name, false))
             {
                 if (player2.ShowDialog() == DialogResult.OK)
                 {
-                    player2Name = player2.playerName;
+                    Player2Name = player2.playerName;
                 }
             }
         }
@@ -373,13 +396,11 @@ namespace TempName
 
             if (!gameboard.player1Turn)
             {
-                if (!player2Name.Equals("")) GameTextLabel.Text = player2Name + "'s Turn";
-                else GameTextLabel.Text = "Player 2's Turn";
+                GameTextLabel.Text = Player2Name + "'s Turn";
             }
             else
             {
-                if (!player1Name.Equals("")) GameTextLabel.Text = player1Name + "'s Turn";
-                else GameTextLabel.Text = "Player 1's Turn";
+                GameTextLabel.Text = Player1Name + "'s Turn";
             }
             CenterTextLabel();
         }
